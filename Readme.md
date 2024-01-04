@@ -1,4 +1,4 @@
-# Key classes
+# Key classes of Guava
 - com.google.common.base.Strings
 - com.google.common.base.Preconditions
 - com.google.common.base.CaseFormat
@@ -13,3 +13,7 @@
 - com.google.common.eventbus.EventBus
 - com.google.common.eventbus.AsyncEventBus
 - com.google.common.eventbus.Subscribe@
+
+# Key classes of Reflections
+- org.reflections.ReflectionUtils;
+- org.reflections.Reflections;
