@@ -17,3 +17,11 @@
 # Key classes of Reflections
 - org.reflections.ReflectionUtils;
 - org.reflections.Reflections;
+
+# Key classes of jcl
+- org.xeustechnologies.jcl.JarClassLoader;
+- org.xeustechnologies.jcl.JclObjectFactory;
+- org.xeustechnologies.jcl.proxy.CglibProxyProvider;
+- org.xeustechnologies.jcl.proxy.ProxyProviderFactory;
+- org.xeustechnologies.jcl.context.DefaultContextLoader;
+- org.xeustechnologies.jcl.context.JclContext;
