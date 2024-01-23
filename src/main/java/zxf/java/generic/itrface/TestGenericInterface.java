@@ -5,6 +5,7 @@ import zxf.java.generic.beans.TargetBeanA;
 import zxf.java.generic.beans.TargetBeanB;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 
 import static zxf.java.generic.GenericUtils.getSuperinterfaceTypeParameters;
 
@@ -24,7 +25,14 @@ public class TestGenericInterface {
         System.out.println("Type Parameter for TransformToB: " + typesOfTransformToB[0] + ", " + typesOfTransformToB[1]);
         TargetBeanB targetBeanB = transformToB.transform(sourceBean);
         System.out.println(targetBeanB.getValue());
+
+        ITransform myTransform = new ITransform<SourceBean, Map<String, String>>() {
+            @Override
+            public void transformInternal(SourceBean source, Map<String, String> target) {
+
+            }
+        };
+        Type[] typesOfMyTransform = getSuperinterfaceTypeParameters(myTransform.getClass(), ITransform.class);
+        System.out.println("Type Parameter for MyTransform: " + typesOfMyTransform[0] + ", " + typesOfMyTransform[1]);
     }
-
-
 }
