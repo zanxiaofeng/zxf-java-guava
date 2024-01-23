@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 import static zxf.java.generic.GenericUtils.getSuperclassTypeParameters;
+import static zxf.java.generic.GenericUtils.printSuperInfo;
 
 public class TestGenericAbsClass {
     public static void main(String[] args) throws Exception {
@@ -18,12 +19,14 @@ public class TestGenericAbsClass {
         TransformToA transformToA = new TransformToA();
         Type[] typesOfTransformToA = getSuperclassTypeParameters(transformToA.getClass());
         System.out.println("Type Parameter for TransformToA: " + typesOfTransformToA[0] + ", " + typesOfTransformToA[1]);
+        printSuperInfo(transformToA.getClass());
         TargetBeanA targetBeanA = transformToA.transform(sourceBean);
         System.out.println(targetBeanA.getValue());
 
         TransformToB transformToB = new TransformToB();
         Type[] typesOfTransformToB = getSuperclassTypeParameters(transformToB.getClass());
         System.out.println("Type Parameter for TransformToB: " + typesOfTransformToB[0] + ", " + typesOfTransformToB[1]);
+        printSuperInfo(transformToB.getClass());
         TargetBeanB targetBeanB = transformToB.transform(sourceBean);
         System.out.println(targetBeanB.getValue());
 
@@ -35,5 +38,6 @@ public class TestGenericAbsClass {
         };
         Type[] typesOfMyTransform = getSuperclassTypeParameters(myTransform.getClass());
         System.out.println("Type Parameter for MyTransform: " + typesOfMyTransform[0] + ", " + typesOfMyTransform[1]);
+        printSuperInfo(myTransform.getClass());
     }
 }

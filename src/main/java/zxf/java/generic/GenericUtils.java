@@ -25,4 +25,15 @@ public class GenericUtils {
         }
         return new Type[]{};
     }
+
+
+    public static void printSuperInfo(Class<?> subclass) {
+        System.out.println("Super Info of " + subclass);
+        Type superType = subclass.getGenericSuperclass();
+        System.out.println("Super class " + superType + ", type: " + superType.getClass());
+        Type[] superInterfaces = subclass.getGenericInterfaces();
+        for (int i = 0; i < superInterfaces.length; i++) {
+            System.out.println("Super interface[" + i + "] " + superInterfaces[i] + ", type: " + superInterfaces[i].getClass());
+        }
+    }
 }

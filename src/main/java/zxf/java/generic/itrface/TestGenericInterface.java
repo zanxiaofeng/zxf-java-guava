@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 import static zxf.java.generic.GenericUtils.getSuperinterfaceTypeParameters;
+import static zxf.java.generic.GenericUtils.printSuperInfo;
 
 public class TestGenericInterface {
     public static void main(String[] args) throws Exception {
@@ -17,12 +18,14 @@ public class TestGenericInterface {
         TransformToA transformToA = new TransformToA();
         Type[] typesOfTransformToA = getSuperinterfaceTypeParameters(transformToA.getClass(), ITransform.class);
         System.out.println("Type Parameter for TransformToA: " + typesOfTransformToA[0] + ", " + typesOfTransformToA[1]);
+        printSuperInfo(transformToA.getClass());
         TargetBeanA targetBeanA = transformToA.transform(sourceBean);
         System.out.println(targetBeanA.getValue());
 
         TransformToB transformToB = new TransformToB();
         Type[] typesOfTransformToB = getSuperinterfaceTypeParameters(transformToB.getClass(), ITransform.class);
         System.out.println("Type Parameter for TransformToB: " + typesOfTransformToB[0] + ", " + typesOfTransformToB[1]);
+        printSuperInfo(transformToB.getClass());
         TargetBeanB targetBeanB = transformToB.transform(sourceBean);
         System.out.println(targetBeanB.getValue());
 
@@ -34,5 +37,6 @@ public class TestGenericInterface {
         };
         Type[] typesOfMyTransform = getSuperinterfaceTypeParameters(myTransform.getClass(), ITransform.class);
         System.out.println("Type Parameter for MyTransform: " + typesOfMyTransform[0] + ", " + typesOfMyTransform[1]);
+        printSuperInfo(myTransform.getClass());
     }
 }
