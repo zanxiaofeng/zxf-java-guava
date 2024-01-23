@@ -1,4 +1,4 @@
-package zxf.java.generic;
+package zxf.java.generic.itrface;
 
 import zxf.java.generic.beans.SourceBean;
 import zxf.java.generic.beans.TargetBeanB;

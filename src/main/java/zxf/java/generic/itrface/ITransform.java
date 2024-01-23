@@ -1,4 +1,4 @@
-package zxf.java.generic;
+package zxf.java.generic.itrface;
 
 import com.google.common.reflect.TypeToken;
 
