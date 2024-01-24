@@ -1,11 +1,13 @@
 package zxf.java.generic.abstrt;
 
-import org.checkerframework.checker.units.qual.A;
+import org.apache.commons.lang3.reflect.TypeUtils;
 import zxf.java.generic.beans.SourceBean;
 import zxf.java.generic.beans.TargetBeanA;
 import zxf.java.generic.beans.TargetBeanB;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.Map;
 
 import static zxf.java.generic.GenericUtils.getSuperclassTypeParameters;
@@ -39,5 +41,10 @@ public class TestGenericAbsClass {
         Type[] typesOfMyTransform = getSuperclassTypeParameters(myTransform.getClass());
         System.out.println("Type Parameter for MyTransform: " + typesOfMyTransform[0] + ", " + typesOfMyTransform[1]);
         printSuperInfo(myTransform.getClass());
+
+        Map<TypeVariable<?>, Type> types = TypeUtils.getTypeArguments((ParameterizedType) myTransform.getClass().getGenericSuperclass());
+        for (TypeVariable variable : types.keySet()) {
+            System.out.println("Key: " + variable + ", Value: " + types.get(variable));
+        }
     }
 }
