@@ -1,10 +1,13 @@
 package zxf.java.generic.itrface;
 
+import org.apache.commons.lang3.reflect.TypeUtils;
 import zxf.java.generic.beans.SourceBean;
 import zxf.java.generic.beans.TargetBeanA;
 import zxf.java.generic.beans.TargetBeanB;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.Map;
 
 import static zxf.java.generic.GenericUtils.getSuperinterfaceTypeParameters;
@@ -38,5 +41,13 @@ public class TestGenericInterface {
         Type[] typesOfMyTransform = getSuperinterfaceTypeParameters(myTransform.getClass(), ITransform.class);
         System.out.println("Type Parameter for MyTransform: " + typesOfMyTransform[0] + ", " + typesOfMyTransform[1]);
         printSuperInfo(myTransform.getClass());
+
+        for (Type type : myTransform.getClass().getGenericInterfaces()) {
+            Map<TypeVariable<?>, Type> types = TypeUtils.getTypeArguments((ParameterizedType) type);
+            for (TypeVariable variable : types.keySet()) {
+                System.out.println("Key: " + variable + ", Value: " + types.get(variable));
+            }
+        }
+
     }
 }
