@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/abc?code=400"
+  },
+  "response": {
+    "status": 400,
+    "body": "Bad Request",
+    "headers": {
+      "Content-Type": "text/plain"
+    }
+  }
+}

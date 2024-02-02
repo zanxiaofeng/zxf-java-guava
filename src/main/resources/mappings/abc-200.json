@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/abc"
+  },
+  "response": {
+    "status": 200,
+    "body": "Hello ABC",
+    "headers": {
+      "Content-Type": "text/plain"
+    }
+  }
+}
