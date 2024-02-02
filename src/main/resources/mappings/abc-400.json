@@ -1,13 +1,19 @@
 {
   "request": {
     "method": "GET",
-    "url": "/abc?code=400"
+    "urlPath": "/abc",
+    "queryParameters": {
+      "code": {
+        "equalTo": "400"
+      }
+    }
   },
   "response": {
     "status": 400,
     "body": "Bad Request",
     "headers": {
       "Content-Type": "text/plain"
-    }
+    },
+    "fixedDelayMilliseconds": 2000
   }
 }
