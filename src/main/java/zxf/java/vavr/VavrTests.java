@@ -33,14 +33,12 @@ public class VavrTests {
         Validation<String, Integer> ageValidation = Validation.valid(40);
         Validation<String, Integer> ageInValidation = Validation.invalid("Bad age");
 
-        Validation<Seq<String>, Person> personValidation = Validation
-                .combine(nameValidation, ageValidation).ap(Person::new);
+        Validation<Seq<String>, Person> personValidation = Validation.combine(nameValidation, ageValidation).ap(Person::new);
         if (personValidation.isValid()) {
             System.out.println(personValidation.get());
         }
 
-        Validation<Seq<String>, Person> personValidation1 = Validation
-                .combine(nameValidation, ageInValidation).ap(Person::new);
+        Validation<Seq<String>, Person> personValidation1 = Validation.combine(nameValidation, ageInValidation).ap(Person::new);
         if (!personValidation1.isValid()) {
             System.out.println(personValidation1.getError());
         }
@@ -67,12 +65,7 @@ public class VavrTests {
     }
 
     private static void testMatches() {
-        Match.Case<Integer, String>[] cases = new Match.Case[]{
-                Case($(is(1)), "A"),
-                Case($(is(2)), "B"),
-                Case($(is(3)), "C"),
-                Case($(), "Z")
-        };
+        Match.Case<Integer, String>[] cases = new Match.Case[]{Case($(is(1)), "A"), Case($(is(2)), "B"), Case($(is(3)), "C"), Case($(), "Z")};
 
         String word = Match(1).of(cases);
         System.out.println(word);
@@ -84,27 +77,22 @@ public class VavrTests {
         System.out.println(word4);
 
         Object obj = 234;
-        Number plusOne = Match(obj).of(
-                Case($(Predicates.instanceOf(Integer.class)), i -> i + 1),
-                Case($(Predicates.instanceOf(Double.class)), d -> d + 1),
-                Case($(), o -> { throw new NumberFormatException(); })
-        );
+        Number plusOne = Match(obj).of(Case($(Predicates.instanceOf(Integer.class)), i -> i + 1), Case($(Predicates.instanceOf(Double.class)), d -> d + 1), Case($(), o -> {
+            throw new NumberFormatException();
+        }));
 
         Try<Tuple2<String, Integer>> successTry = Try.success(new Tuple2<>("a", 1));
-
-        Object result = Match(successTry).of(
-                Case(Patterns.$Success(Patterns.$Tuple2($("a"), $())), tuple2 -> tuple2),
-                Case(Patterns.$Failure($(Predicates.instanceOf(Exception.class))), error -> error)
-        );
-        System.out.println(result);
-
         Try<Tuple2<String, Integer>> failureTry = Try.failure(new RuntimeException("failure try"));
 
-        Object result1 = Match(failureTry).of(
-                Case(Patterns.$Success(Patterns.$Tuple2($("a"), $())), tuple2 -> tuple2),
-                Case(Patterns.$Failure($(Predicates.instanceOf(Exception.class))), error -> error)
-        );
-        System.out.println(result1);
+        Match.Case<Try<Tuple2<String, Integer>>, Object>[] cases2 = new Match.Case[]{Case(Patterns.$Success(Patterns.$Tuple2($("a"), $())), tuple2 -> tuple2), Case(Patterns.$Failure($(Predicates.instanceOf(Exception.class))), error -> error)};
+        System.out.println(Match(successTry).of(cases2));
+        System.out.println(Match(failureTry).of(cases2));
+
+
+        System.out.println("######");
+        Match.Case<Try<Tuple2<String, Integer>>, Object>[] cases1 = new Match.Case[]{Case(Patterns.$Success($()), tuple2 -> tuple2), Case(Patterns.$Failure($()), error -> error)};
+        System.out.println(Match(successTry).of(cases1));
+        System.out.println(Match(failureTry).of(cases1));
     }
 
     private static Integer sum(Integer a, Integer b, Integer c) {
