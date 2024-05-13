@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 public class TikaTests {
     public static void main(String[] args) throws IOException {
-        byte[] binaryBytes = new byte[]{0x00, 0x66, 0x00};
+        byte[] binaryBytes = new byte[]{0x00, 0x00, 0x00};
         byte[] textBytes = "ABC".getBytes(StandardCharsets.UTF_8);
         EncodingDetector encodingDetector = new UniversalEncodingDetector();
         Charset binaryCharset = encodingDetector.detect(new ByteArrayInputStream(binaryBytes), new Metadata());
