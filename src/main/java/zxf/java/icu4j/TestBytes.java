@@ -1,7 +1,5 @@
 package zxf.java.icu4j;
 
-import org.apache.tika.parser.txt.CharsetDetector;
-
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -10,11 +8,11 @@ import java.nio.charset.StandardCharsets;
 
 public class TestBytes {
     public static void main(String[] args) {
-        byte[] binary1Bytes = new byte[]{(byte)0xF0, 0x02, 0x01};
-        byte[] binary2Bytes = new byte[]{(byte)0x10, 0x02, 0x01};
+        byte[] binaryBytes = new byte[]{0x00, 0x00, 0x01};
+        byte[] invalidUtf8Bytes = {(byte) 0xF0, (byte) 0xC1, (byte) 0x8C, (byte) 0xBC, (byte) 0xD1};
         byte[] textBytes = "ABC".getBytes(StandardCharsets.UTF_8);
-        System.out.println("Check binary1 bytes: " + checkUTF8(binary1Bytes));
-        System.out.println("Check binary2 bytes: " + checkUTF8(binary2Bytes));
+        System.out.println("Check binary bytes: " + checkUTF8(binaryBytes));
+        System.out.println("Check invalidUtf8 bytes: " + checkUTF8(invalidUtf8Bytes));
         System.out.println("Check text bytes: " + checkUTF8(textBytes));
     }
 
