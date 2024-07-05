@@ -52,3 +52,6 @@
 - io.vavr.collection.Seq<T>
 - io.vavr.collection.Set<T>
 - io.vavr.collection.Tree<T>
+
+# json template
+- https://github.com/json-template/JsonTemplate
