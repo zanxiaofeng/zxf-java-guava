@@ -17,8 +17,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-public class PDFCreator {
-    public byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
+public class PDFFormHelper {
+
+    public byte[] fill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
+        return fillForm(pdfTemplateStream, pdfFontStream, formData, true);
+    }
+
+    public byte[] partialFill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
+        return fillForm(pdfTemplateStream, pdfFontStream, formData, false);
+    }
+
+
+    private byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData, boolean flatten) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfTemplateStream), new PdfWriter(outputStream))) {
@@ -35,7 +45,9 @@ public class PDFCreator {
                 }
             }
 
-            pdfForm.flattenFields();
+            if (flatten) {
+                pdfForm.flattenFields();
+            }
         }
 
         // Must below the pdfDocument close
