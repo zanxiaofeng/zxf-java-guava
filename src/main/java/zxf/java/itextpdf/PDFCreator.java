@@ -19,10 +19,9 @@ import java.util.Map;
 
 public class PDFCreator {
     public byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-             PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfTemplateStream), new PdfWriter(outputStream))) {
-
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfTemplateStream), new PdfWriter(outputStream))) {
             FontProgram fontProgram = FontProgramFactory.createFont(IOUtils.toByteArray(pdfFontStream));
             PdfFont pdfFont = PdfFontFactory.createFont(fontProgram, PdfEncodings.IDENTITY_H, true);
 
@@ -37,7 +36,9 @@ public class PDFCreator {
             }
 
             pdfForm.flattenFields();
-            return outputStream.toByteArray();
         }
+
+        // Must below the pdfDocument close
+        return outputStream.toByteArray();
     }
 }
