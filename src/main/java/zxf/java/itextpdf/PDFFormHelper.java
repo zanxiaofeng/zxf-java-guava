@@ -15,20 +15,22 @@ import org.apache.commons.io.IOUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 public class PDFFormHelper {
 
     public byte[] fill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
-        return fillForm(pdfTemplateStream, pdfFontStream, formData, true);
+        return fillForm(pdfTemplateStream, pdfFontStream, formData, Collections.emptySet());
     }
 
-    public byte[] partialFill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
-        return fillForm(pdfTemplateStream, pdfFontStream, formData, false);
+    public byte[] partialFill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData, Set<String> excludedFields) throws IOException {
+        return fillForm(pdfTemplateStream, pdfFontStream, formData, excludedFields);
     }
 
 
-    private byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData, boolean flatten) throws IOException {
+    private byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData, Set<String> excludedFields) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfTemplateStream), new PdfWriter(outputStream))) {
@@ -45,9 +47,13 @@ public class PDFFormHelper {
                 }
             }
 
-            if (flatten) {
-                pdfForm.flattenFields();
+            for (String fieldName : formData.keySet()) {
+                if (!excludedFields.contains(fieldName)) {
+                    pdfForm.partialFormFlattening(fieldName);
+                }
             }
+
+            pdfForm.flattenFields();
         }
 
         // Must below the pdfDocument close
