@@ -8,6 +8,7 @@ import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import org.apache.commons.io.IOUtils;
@@ -43,7 +44,8 @@ public class PDFFormHelper {
             for (Map.Entry<String, String> formDataFiled : formData.entrySet()) {
                 PdfFormField pdfFormField = pdfFormFields.get(formDataFiled.getKey());
                 if (pdfFormField != null) {
-                    pdfFormField.setValue(formDataFiled.getValue()).setFont(pdfFont).setReadOnly(true);
+                    fillDataWithStyle(pdfFormField, formDataFiled.getValue(), pdfFont);
+
                 }
             }
 
@@ -58,5 +60,11 @@ public class PDFFormHelper {
 
         // Must below the pdfDocument close
         return outputStream.toByteArray();
+    }
+
+    private void fillDataWithStyle(PdfFormField pdfFormField, String value, PdfFont pdfFont) {
+        PdfName fieldType = pdfFormField.getFormType();
+
+        pdfFormField.setValue(value).setFont(pdfFont).setReadOnly(true);
     }
 }
