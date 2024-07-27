@@ -53,5 +53,14 @@
 - io.vavr.collection.Set<T>
 - io.vavr.collection.Tree<T>
 
+# Key classes of itextbox
+- com.itextpdf.forms.fields.PdfFormField
+- com.itextpdf.forms.fields.PdfTextFormField
+- com.itextpdf.forms.fields.PdfChoiceFormField
+- com.itextpdf.forms.fields.PdfButtonFormField
+- com.itextpdf.forms.fields.PdfSignatureFormField
+- com.itextpdf.kernel.pdf.PdfString
+- com.itextpdf.kernel.pdf.PdfName
+
 # json template
 - https://github.com/json-template/JsonTemplate
