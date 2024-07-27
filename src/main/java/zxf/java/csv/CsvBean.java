@@ -25,4 +25,6 @@ public class CsvBean {
     private String[] toCsvRecord() {
         return new String[]{firstName, lastName, address, age == null ? "" : String.valueOf(age)};
     }
+
+
 }

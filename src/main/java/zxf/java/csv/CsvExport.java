@@ -20,7 +20,8 @@ public class CsvExport {
     }
 
     private static void exportCsv(String[] header, List<String[]> contents) throws IOException {
-        try (CSVPrinter csvPrinter = new CSVPrinter(System.out, CSVFormat.ORACLE)) {
+        try (FileWriter fileWriter = new FileWriter("./output/output.csv");
+             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord(header);
             for (String[] content : contents) {
                 List<String> nornalizeContent = Arrays.stream(content)
