@@ -95,6 +95,16 @@
             <artifactId>jsontemplate</artifactId>
             <version>0.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
         <!-- -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -109,6 +119,11 @@
             <id>itext7-core</id>
             <name>itext7-core</name>
             <url>https://mvnrepository.com/artifact/com.itextpdf/itext7-core</url>
+        </repository>
+        <repository>
+            <id>maven2</id>
+            <name>maven2</name>
+            <url>https://repo.maven.apache.org/maven2</url>
         </repository>
     </repositories>
 

@@ -22,14 +22,9 @@ import java.util.Set;
 
 public class PDFFormHelper {
 
-    public byte[] fill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
+    public byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData) throws IOException {
         return fillForm(pdfTemplateStream, pdfFontStream, formData, Collections.emptySet());
     }
-
-    public byte[] partialFill(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData, Set<String> excludedFields) throws IOException {
-        return fillForm(pdfTemplateStream, pdfFontStream, formData, excludedFields);
-    }
-
 
     private byte[] fillForm(InputStream pdfTemplateStream, InputStream pdfFontStream, Map<String, String> formData, Set<String> excludedFields) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -61,6 +56,18 @@ public class PDFFormHelper {
         // Must below the pdfDocument close
         return outputStream.toByteArray();
     }
+
+    public void printFormInfo(InputStream pdfTemplateStream) throws IOException {
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfTemplateStream))) {
+            PdfAcroForm pdfForm = PdfAcroForm.getAcroForm(pdfDocument, true);
+            Map<String, PdfFormField> pdfFormFields = pdfForm.getFormFields();
+
+            for (Map.Entry<String, PdfFormField> formFiled : pdfFormFields.entrySet()) {
+
+            }
+        }
+    }
+
 
     private void fillDataWithStyle(PdfFormField pdfFormField, String value, PdfFont pdfFont) {
         PdfName fieldType = pdfFormField.getFormType();
