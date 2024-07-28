@@ -10,7 +10,8 @@ public class CsvImport {
     public static void main(String[] args) throws IOException {
         try (FileReader fileReader = new FileReader("./output/output.csv")) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT
-                    .builder().setHeader()
+                    .builder()
+                    .setHeader()
                     .setSkipHeaderRecord(true)
                     .build()
                     .parse(fileReader);

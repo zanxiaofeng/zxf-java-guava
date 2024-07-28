@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 
 public class CsvExport {
     public static void main(String[] args) throws IOException {
-        List<CsvBean> beans = Arrays.asList(new CsvBean("John", "Doe", "1234, Elm st", 25),
+        List<CsvBean> beans = Arrays.asList(
+                new CsvBean("John", "Doe", "1234, Elm st", 25),
                 new CsvBean("Jane", "Smith", "1234 \" Oka st", 30),
                 new CsvBean("Bog", "Brown", "1234 \nPine st", 35),
                 new CsvBean("Bod", null, "1234 \r\n ABC st", null));
@@ -20,9 +21,9 @@ public class CsvExport {
     }
 
     private static void exportCsv(String[] header, List<String[]> contents) throws IOException {
+        CSVFormat myFormat = CSVFormat.DEFAULT.builder().setHeader(header).build();
         try (FileWriter fileWriter = new FileWriter("./output/output.csv");
-             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
-            csvPrinter.printRecord(header);
+             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, myFormat)) {
             for (String[] content : contents) {
                 List<String> nornalizeContent = Arrays.stream(content)
                         .map(StringUtils::normalizeSpace)
