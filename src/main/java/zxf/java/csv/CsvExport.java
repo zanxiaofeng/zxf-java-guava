@@ -21,14 +21,14 @@ public class CsvExport {
     }
 
     private static void exportCsv(String[] header, List<String[]> contents) throws IOException {
-        CSVFormat myFormat = CSVFormat.DEFAULT.builder().setHeader(header).build();
+        CSVFormat exportFormat = CSVFormat.DEFAULT.builder().setHeader(header).build();
         try (FileWriter fileWriter = new FileWriter("./output/output.csv");
-             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, myFormat)) {
+             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, exportFormat)) {
             for (String[] content : contents) {
-                List<String> nornalizeContent = Arrays.stream(content)
+                List<String> normalizeContent = Arrays.stream(content)
                         .map(StringUtils::normalizeSpace)
                         .collect(Collectors.toList());
-                csvPrinter.printRecord(nornalizeContent);
+                csvPrinter.printRecord(normalizeContent);
             }
         }
     }

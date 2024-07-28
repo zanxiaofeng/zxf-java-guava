@@ -9,12 +9,8 @@ import java.io.IOException;
 public class CsvImport {
     public static void main(String[] args) throws IOException {
         try (FileReader fileReader = new FileReader("./output/output.csv")) {
-            Iterable<CSVRecord> records = CSVFormat.DEFAULT
-                    .builder()
-                    .setHeader()
-                    .setSkipHeaderRecord(true)
-                    .build()
-                    .parse(fileReader);
+            CSVFormat importFormat = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build();
+            Iterable<CSVRecord> records = importFormat.parse(fileReader);
             for (CSVRecord record : records) {
                 String firstName = record.get("firstName");
                 String lastName = record.get("lastName");
