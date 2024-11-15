@@ -33,3 +33,4 @@ public class LombokTests {
         private String password;
     }
 }
+
