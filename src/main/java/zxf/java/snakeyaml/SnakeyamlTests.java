@@ -1,6 +1,7 @@
 package zxf.java.snakeyaml;
 
 import lombok.Cleanup;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
@@ -27,7 +28,7 @@ public class SnakeyamlTests {
         Map<String, Object> map = new Yaml().load(inputStream1);
         System.out.println("Read Map: " + map);
 
-        Yaml yaml = new Yaml(new Constructor(Order.class));
+        Yaml yaml = new Yaml(new Constructor(Order.class, new LoaderOptions()));
         @Cleanup InputStream inputStream2 = SnakeyamlTests.class.getResourceAsStream("/yaml/example-1.yml");
         Order order1 = yaml.load(inputStream2);
         System.out.println("Read Customer Type - without type: " + order1);
