@@ -42,9 +42,9 @@ public class TestZonedDateTime {
 
     private static void testLocalDateTimeToZonedDateTime() {
         ////now(ZoneId targetZoneId) = LocalDataTime + Default ZoneId => LocalDataTime + targetZoneId
-        System.out.println("LocalDateTime to ZonedDateTime by LocalDateTime.now(ZoneId)" + LocalDateTime.now(sydneyZoneId));
+        System.out.println("LocalDateTime to ZonedDateTime by LocalDateTime.now(ZoneId): " + LocalDateTime.now(sydneyZoneId));
         //atZone(ZoneId targetZoneId) = LocalDataTime + targetZoneId
-        System.out.println("LocalDateTime to ZonedDateTime by LocalDateTime.atZone(ZoneId)" + LocalDateTime.now().atZone(sydneyZoneId));
+        System.out.println("LocalDateTime to ZonedDateTime by LocalDateTime.atZone(ZoneId): " + LocalDateTime.now().atZone(sydneyZoneId));
     }
 
     private static void testZonedDateTimeToLocalDateTime() {
