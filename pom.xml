@@ -121,16 +121,20 @@
     </dependencies>
 
     <repositories>
+<!--        <repository>-->
+<!--            <id>itext7-core</id>-->
+<!--            <name>itext7-core</name>-->
+<!--            <url>https://mvnrepository.com/artifact/com.itextpdf/itext7-core</url>-->
+<!--        </repository>-->
         <repository>
-            <id>itext7-core</id>
-            <name>itext7-core</name>
-            <url>https://mvnrepository.com/artifact/com.itextpdf/itext7-core</url>
-        </repository>
-        <repository>
-            <id>maven2</id>
-            <name>maven2</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>Central Repository</name>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
+
     </repositories>
 
     <build>
