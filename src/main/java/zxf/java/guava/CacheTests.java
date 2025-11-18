@@ -7,10 +7,13 @@ import lombok.Data;
 
 import java.util.concurrent.ExecutionException;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
+
 public class CacheTests {
     public static void main(String[] args) throws ExecutionException {
         LoadingCache<Request, String> cache = CacheBuilder.newBuilder()
                 .maximumSize(1000)
+                .expireAfterWrite(1, MINUTES)
                 .build(
                         new com.google.common.cache.CacheLoader<Request, String>() {
                             @Override
@@ -28,7 +31,7 @@ public class CacheTests {
 
     @Data
     @AllArgsConstructor
-    public static class Request{
+    public static class Request {
         private String path;
         private String filename;
     }
