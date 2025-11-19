@@ -16,6 +16,7 @@ public class Tests {
 
         System.out.println("ObjectUtils testing");
         System.out.println(ObjectUtils.allNotNull(12,23));
+        System.out.println(ObjectUtils.defaultIfNull(null,0));
 
         System.out.println("StringUtils testing");
         System.out.println(StringUtils.normalizeSpace(""));
