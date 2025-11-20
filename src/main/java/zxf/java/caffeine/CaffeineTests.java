@@ -1,6 +1,8 @@
 package zxf.java.caffeine;
 
 import com.github.benmanes.caffeine.cache.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -33,27 +35,27 @@ public class CaffeineTests {
     }
 
     private static void testSyncLoading() {
-        LoadingCache<String, DataObject> cache = Caffeine.newBuilder()
+        LoadingCache<Request, String> cache = Caffeine.newBuilder()
                 .maximumSize(100)
                 .expireAfterWrite(1, TimeUnit.MINUTES)
-                .build(k -> DataObject.get("Data for " + k));
+                .build(k -> k.toString());
 
-        DataObject dataObject = cache.get("test 2");
+        String dataObject = cache.get(new Request("a", "1"));
         System.out.println(dataObject);
 
-        Map<String, DataObject> dataObjectMap
-                = cache.getAll(Arrays.asList("A1", "B1", "C1"));
+        Map<Request, String> dataObjectMap
+                = cache.getAll(Arrays.asList(new Request("a", "1"), new Request("a", "2")));
         System.out.println(dataObjectMap);
     }
 
     private static void testAsyncLoading() {
-        AsyncLoadingCache<String, DataObject> cache = Caffeine.newBuilder()
+        AsyncLoadingCache<Request, String> cache = Caffeine.newBuilder()
                 .maximumSize(100)
                 .expireAfterWrite(1, TimeUnit.MINUTES)
-                .buildAsync(k -> DataObject.get("Data for " + k));
+                .buildAsync(k -> k.toString());
 
-        cache.get("test 3").thenAccept(System.out::println);
-        cache.getAll(Arrays.asList("A2", "B2", "C2")).thenAccept(System.out::println);
+        cache.get(new Request("a", "1")).thenAccept(System.out::println);
+        cache.getAll(Arrays.asList(new Request("a", "1"), new Request("a", "2"))).thenAccept(System.out::println);
     }
 
     private static void testSizeBasedEviction() {
@@ -131,13 +133,13 @@ public class CaffeineTests {
                 .build(k -> DataObject.get("Data for " + k));
     }
 
-    private static void testRefreshing(){
+    private static void testRefreshing() {
         LoadingCache<String, DataObject> cache = Caffeine.newBuilder()
                 .refreshAfterWrite(1, TimeUnit.MINUTES)
                 .build(k -> DataObject.get("Data for " + k));
     }
 
-    private static void testStatistics(){
+    private static void testStatistics() {
         LoadingCache<String, DataObject> cache = Caffeine.newBuilder()
                 .maximumSize(100)
                 .recordStats()
@@ -152,7 +154,6 @@ public class CaffeineTests {
     static class DataObject {
         private final String data;
 
-        private static int objectCounter = 0;
 
         DataObject(String data) {
             this.data = data;
@@ -163,7 +164,6 @@ public class CaffeineTests {
         }
 
         public static DataObject get(String data) {
-            objectCounter++;
             return new DataObject(data);
         }
 
@@ -171,5 +171,12 @@ public class CaffeineTests {
         public String toString() {
             return String.format("Data: %s", data);
         }
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class Request {
+        private String path;
+        private String filename;
     }
 }
